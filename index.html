@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SecureServe Commissions</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#26262c;--pn:#303037;--pn2:#3a3a42;--ln:#46464f;--tx:#f3f1ee;--mu:#a3a3ad;--ac:#ff8f4c;--acd:#1f1208;--ok:#6fcf97;--er:#ff6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f4f2ef;--pn:#fff;--pn2:#f0ece8;--ln:#ddd7d0;--tx:#26262c;--mu:#6b6b75;--ac:#e8742a;--acd:#fff;--ok:#1f8f55;--er:#d13b3b;color-scheme:light}}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--tx);font:14px/1.45 'IBM Plex Sans',system-ui,sans-serif;font-variant-numeric:tabular-nums}
+h1,h2,h3,.brand{font-family:Outfit,system-ui,sans-serif;margin:0}
+#app{display:flex;min-height:100vh}
+nav{width:220px;background:var(--pn);border-right:1px solid var(--ln);padding:20px 12px;position:sticky;top:0;height:100vh;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.08em;font-size:15px;color:var(--ac);padding:0 8px 22px}
+nav button{display:flex;width:100%;gap:10px;align-items:center;background:none;border:0;color:var(--mu);font:500 14px 'IBM Plex Sans';padding:10px 12px;border-radius:8px;cursor:pointer;text-align:left;margin-bottom:2px}
+nav button:hover{background:var(--pn2);color:var(--tx)}
+nav button.on{background:var(--ac);color:var(--acd);font-weight:600}
+main{flex:1;padding:28px 32px;min-width:0;max-width:1200px}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+h2{font-size:26px;font-weight:600}.sub{color:var(--mu);margin-top:2px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:18px}
+.grid{display:grid;gap:14px}.k4{grid-template-columns:repeat(4,1fr)}.c2{grid-template-columns:1.4fr 1fr}.c2e{grid-template-columns:1fr 1fr}
+.kpi .l{color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.kpi .v{font:600 24px Outfit;margin-top:6px}.kpi.hi{border-color:var(--ac)}.kpi.hi .v{color:var(--ac)}
+h3{font-size:15px;font-weight:600;margin-bottom:14px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;color:var(--mu);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;border-bottom:1px solid var(--ln);white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid var(--ln)}tr:last-child td{border-bottom:0}
+.r{text-align:right}.tw{overflow-x:auto}
+tr.cl{cursor:pointer}tr.cl:hover td{background:var(--pn2)}
+input,select{background:var(--bg);border:1px solid var(--ln);color:var(--tx);border-radius:8px;padding:9px 11px;font:14px 'IBM Plex Sans';width:100%}
+input:focus,select:focus{outline:2px solid var(--ac);outline-offset:-1px}
+label{display:block;color:var(--mu);font-size:12px;margin-bottom:5px}
+.f{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end}
+.btn{background:var(--ac);color:var(--acd);border:0;border-radius:8px;padding:9px 16px;font:600 14px 'IBM Plex Sans';cursor:pointer;white-space:nowrap}
+.btn.g{background:var(--pn2);color:var(--tx);border:1px solid var(--ln)}.btn.d{background:none;color:var(--er);border:1px solid var(--ln)}.btn.s{padding:5px 10px;font-size:12px}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:500;background:var(--pn2)}
+.Paid{color:var(--ok)}.Unpaid{color:var(--er)}.Partial{color:var(--ac)}.Credit{color:var(--mu)}
+.bar{height:8px;border-radius:4px;background:var(--pn2);overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.row{display:grid;grid-template-columns:110px 1fr 100px;gap:10px;align-items:center;margin:9px 0;font-size:13px}
+.row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drop{border:2px dashed var(--ln);border-radius:12px;padding:34px;text-align:center;cursor:pointer;color:var(--mu)}
+.drop:hover{border-color:var(--ac);color:var(--tx)}.drop b{color:var(--ac);display:block;font:600 16px Outfit;margin-bottom:4px}
+.warn{color:var(--er);font-size:12px;margin-top:6px}
+.empty{color:var(--mu);text-align:center;padding:26px}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;justify-content:flex-end;z-index:20}
+#modal.on{display:flex}
+#panel{background:var(--bg);width:min(760px,100%);height:100%;overflow:auto;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px))}
+.leg{display:flex;gap:14px;color:var(--mu);font-size:12px;margin-bottom:6px}.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+@media(max-width:860px){#app{flex-direction:column}nav{width:100%;height:auto;position:static;display:flex;overflow-x:auto;padding:10px;gap:4px;align-items:center}.brand{padding:0 10px 0 4px}nav button{width:auto;white-space:nowrap;margin:0}main{padding:18px 14px}.k4,.c2,.c2e{grid-template-columns:1fr 1fr}.c2,.c2e{grid-template-columns:1fr}}
+@media print{#app,.np{display:none!important}#modal{position:static;display:block;background:none}#panel{width:100%;overflow:visible;color:#000;background:#fff}}
+</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#303037"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SecureServe"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png">
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" async></script>
+</head><body>
+<div id="app"><nav>
+<div class="brand"><svg width="30" height="20" viewBox="0 0 36 22" fill="none" stroke="#ff8f4c" stroke-width="4.5" stroke-linecap="round"><path d="M18 11C13 2 4 2 4 11s9 9 14 0 14-9 14 0-9 9-14 0z"/></svg>SECURESERVE</div>
+<button data-v="dash">▦ Dashboard</button><button data-v="agents">☰ Agents &amp; balances</button><button data-v="add">＋ Add agent</button><button data-v="up">⇪ Upload invoice</button><button data-v="pay">₪ Payments ledger</button>
+<button style="margin-top:18px" onclick="backup()">⤓ Backup data</button><button onclick="rf.click()">⤒ Restore backup</button><input id="rf" type="file" accept=".json" hidden onchange="restore(this.files[0]);this.value=''"></nav><main id="main"></main></div>
+<div id="modal"><div id="panel"></div></div>
+<script>
+const K='ss_commissions_v1';let S={agents:[],inv:[],pay:[]},V='dash',P=[],RNG='all',Q='',busy=0,msg='';
+try{S=Object.assign(S,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const uid=()=>Math.random().toString(36).slice(2,9),today=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f=n=>(+n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const ag=id=>S.agents.find(a=>a.id===id);
+function stats(a){let paid=S.pay.filter(p=>p.agent===a.id).reduce((s,p)=>s+ +p.amt,0);const tp=paid;
+const rows=S.inv.filter(i=>i.agent===a.id).sort((x,y)=>x.date<y.date?-1:1).map(i=>{let pd=0;if(i.comm>0){pd=Math.min(i.comm,Math.max(paid,0));paid-=pd}
+return{...i,pd,st:i.comm<=0?'Credit':pd>=i.comm-.005?'Paid':pd>0?'Partial':'Unpaid'}});
+const sales=rows.reduce((s,i)=>s+ +i.amt,0),comm=rows.reduce((s,i)=>s+ +i.comm,0);return{rows,sales,comm,paid:tp,out:comm-tp}}
+function inRange(d){if(RNG==='all')return true;const n=new Date(),x=new Date(d);if(RNG==='m')return x.getMonth()===n.getMonth()&&x.getFullYear()===n.getFullYear();
+if(RNG==='q')return Math.floor(x.getMonth()/3)===Math.floor(n.getMonth()/3)&&x.getFullYear()===n.getFullYear();return x.getFullYear()===n.getFullYear()}
+const sel=(id,v,all)=>`<select onchange="${id}">${all}</select>`;
+const agOpts=(cur,blank)=>(blank?`<option value="">— Unassigned —</option>`:'')+S.agents.map(a=>`<option value="${a.id}" ${a.id===cur?'selected':''}>${esc(a.name)} · ${esc(a.loc)}</option>`).join('');
+function csv(name,rows){dl(name,rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv')}
+function dl(name,data,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+function backup(){dl('secureserve-backup-'+today()+'.json',JSON.stringify(S),'application/json')}
+function restore(file){if(!file)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.agents)||!Array.isArray(d.inv)||!Array.isArray(d.pay))throw 0;if(!confirm('Replace all current data with this backup?'))return;S=d;save();render()}catch(e){alert('That file is not a valid backup.')}};r.readAsText(file)}
+function go(v){V=v;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));render()}
+document.querySelectorAll('nav button[data-v]').forEach(b=>b.onclick=()=>go(b.dataset.v));
+
+/* ---------- Dashboard ---------- */
+function dash(){
+const inv=S.inv.filter(i=>inRange(i.date)),sales=inv.reduce((s,i)=>s+ +i.amt,0),comm=inv.reduce((s,i)=>s+ +i.comm,0);
+const paid=S.pay.filter(p=>inRange(p.date)).reduce((s,p)=>s+ +p.amt,0);
+const all=S.agents.map(a=>({a,s:stats(a)})),out=all.reduce((s,x)=>s+x.s.out,0);
+const months=[];for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);months.push(d.toISOString().slice(0,7))}
+const mv=months.map(m=>{const x=S.inv.filter(i=>i.date.slice(0,7)===m);return{m,s:x.reduce((a,i)=>a+ +i.amt,0),c:x.reduce((a,i)=>a+ +i.comm,0)}});
+const mx=Math.max(1,...mv.map(x=>x.s));
+const chart=`<svg viewBox="0 0 520 210" width="100%" role="img" aria-label="Monthly sales and commission">${mv.map((x,i)=>{const w=520/6,h1=x.s/mx*150,h2=x.c/mx*150,x0=i*w+w/2;
+return`<rect x="${x0-24}" y="${170-h1}" width="22" height="${h1}" rx="3" fill="var(--ac)"/><rect x="${x0+2}" y="${170-h2}" width="22" height="${h2}" rx="3" fill="var(--mu)"/><text x="${x0}" y="192" text-anchor="middle" font-size="11" fill="var(--mu)">${new Date(x.m+'-01').toLocaleString('en',{month:'short'})}</text>`}).join('')}<line x1="0" x2="520" y1="170" y2="170" stroke="var(--ln)"/></svg>`;
+const tot=paid+out||1,C=2*Math.PI*52,pp=Math.max(0,Math.min(1,paid/(paid+Math.max(out,0)||1)));
+const donut=`<svg viewBox="0 0 140 140" width="150"><circle cx="70" cy="70" r="52" fill="none" stroke="var(--ac)" stroke-width="18"/><circle cx="70" cy="70" r="52" fill="none" stroke="var(--ok)" stroke-width="18" stroke-dasharray="${pp*C} ${C}" transform="rotate(-90 70 70)"/><text x="70" y="76" text-anchor="middle" font-family="Outfit" font-weight="600" font-size="20" fill="var(--tx)">${Math.round(pp*100)}%</text></svg>`;
+const bars=(items,fmt=f)=>{const m=Math.max(1,...items.map(i=>i[1]));return items.length?items.map(([l,v])=>`<div class="row"><span title="${esc(l)}">${esc(l)}</span><div class="bar"><i style="width:${Math.max(0,v)/m*100}%"></i></div><span class="r">${fmt(v)}</span></div>`).join(''):'<div class="empty">No data yet</div>'};
+const top=[...all].sort((a,b)=>b.s.sales-a.s.sales).slice(0,6).map(x=>[x.a.name,x.s.sales]);
+const topO=[...all].filter(x=>x.s.out>.005).sort((a,b)=>b.s.out-a.s.out).slice(0,6).map(x=>[x.a.name,x.s.out]);
+const loc={};inv.forEach(i=>{const a=ag(i.agent),k=a?a.loc:'Unassigned';loc[k]=(loc[k]||0)+ +i.amt});
+const b=[0,0,0,0];const now=Date.now();all.forEach(x=>x.s.rows.forEach(r=>{const u=r.comm-r.pd;if(r.comm>0&&u>.005){const d=(now-new Date(r.date))/864e5;b[d<=30?0:d<=60?1:d<=90?2:3]+=u}}));
+const un=S.inv.filter(i=>!i.agent).length;
+return`<div class="hd"><div><h2>Dashboard</h2><div class="sub">Sales and commission overview · AED</div></div><div style="width:170px"><select onchange="RNG=this.value;render()">${[['all','All time'],['m','This month'],['q','This quarter'],['y','This year']].map(o=>`<option value="${o[0]}" ${RNG===o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></div></div>
+${un?`<div class="card" style="margin-bottom:14px;border-color:var(--ac)">${un} invoice${un>1?'s are':' is'} not assigned to an agent. <a href="#" style="color:var(--ac)" onclick="go('up');return false">Review now</a></div>`:''}
+<div class="grid k4"><div class="card kpi"><div class="l">Total sales</div><div class="v">${f(sales)}</div></div><div class="card kpi"><div class="l">Total commission</div><div class="v">${f(comm)}</div></div><div class="card kpi"><div class="l">Commission paid</div><div class="v">${f(paid)}</div></div><div class="card kpi hi"><div class="l">Outstanding (all time)</div><div class="v">${f(out)}</div></div></div>
+<div class="grid c2" style="margin-top:14px"><div class="card"><h3>Sales vs commission · last 6 months</h3><div class="leg"><span><i style="background:var(--ac)"></i>Sales</span><span><i style="background:var(--mu)"></i>Commission</span></div>${chart}</div>
+<div class="card"><h3>Paid vs outstanding</h3><div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">${donut}<div><div class="leg" style="display:block"><div><i style="background:var(--ok)"></i>Paid ${f(paid)}</div><div style="margin-top:6px"><i style="background:var(--ac)"></i>Outstanding ${f(out)}</div></div></div></div></div></div>
+<div class="grid c2e" style="margin-top:14px"><div class="card"><h3>Top agents by sales</h3>${bars(top)}</div><div class="card"><h3>Highest outstanding balances</h3>${bars(topO)}</div>
+<div class="card"><h3>Sales by location</h3>${bars(Object.entries(loc).sort((a,b)=>b[1]-a[1]).slice(0,6))}</div><div class="card"><h3>Ageing of outstanding commission</h3>${bars([['0–30 days',b[0]],['31–60 days',b[1]],['61–90 days',b[2]],['90+ days',b[3]]])}</div></div>`}
+
+/* ---------- Agents ---------- */
+function agents(){const rows=S.agents.filter(a=>(a.name+a.loc).toLowerCase().includes(Q.toLowerCase())).map(a=>({a,s:stats(a)}));
+return`<div class="hd"><div><h2>Agents &amp; balances</h2><div class="sub">Select an agent to see invoices, commission and payments</div></div><div style="display:flex;gap:8px"><input style="width:220px" placeholder="Search agent or location" value="${esc(Q)}" oninput="Q=this.value;clearTimeout(window.t);window.t=setTimeout(()=>{render();document.querySelector('main input').focus();const i=document.querySelector('main input');i.setSelectionRange(Q.length,Q.length)},250)"><button class="btn g" onclick="exportAgents()">Export CSV</button></div></div>
+<div class="card tw">${rows.length?`<table><tr><th>Agent</th><th>Location</th><th class="r">Rate</th><th class="r">Sales</th><th class="r">Commission</th><th class="r">Paid</th><th class="r">Outstanding</th></tr>${rows.map(({a,s})=>`<tr class="cl" onclick="openAgent('${a.id}')"><td><b>${esc(a.name)}</b>${a.on===false?' <span class="tag">Inactive</span>':''}</td><td>${esc(a.loc)}</td><td class="r">${a.rate}%</td><td class="r">${f(s.sales)}</td><td class="r">${f(s.comm)}</td><td class="r">${f(s.paid)}</td><td class="r" style="color:${s.out>.005?'var(--ac)':'var(--ok)'};font-weight:600">${f(s.out)}</td></tr>`).join('')}</table>`:'<div class="empty">No agents found. Add your first agent to get started.</div>'}</div>`}
+function exportAgents(){csv('agents-balances.csv',[['Agent','Location','Rate %','Sales','Commission','Paid','Outstanding'],...S.agents.map(a=>{const s=stats(a);return[a.name,a.loc,a.rate,s.sales,s.comm,s.paid,s.out]})])}
+function addAgent(){return`<div class="hd"><div><h2>Add sales agent</h2><div class="sub">The location is matched against the address on uploaded invoices, so use it as it appears on your documents.</div></div></div>
+<div class="card" style="max-width:640px">${agentForm()}</div>`}
+function agentForm(a){return`<div class="f"><div><label>Agent name</label><input id="an" value="${esc(a?.name)}"></div><div><label>Location (as on invoices)</label><input id="al" value="${esc(a?.loc)}"></div><div><label>Commission rate (%)</label><input id="ar" type="number" step="0.01" min="0" max="100" value="${a?a.rate:''}"></div><div><label>WhatsApp number (with country code)</label><input id="aw" inputmode="tel" placeholder="971501234567" value="${esc(a?.wa)}"></div><div><label>IBAN</label><input id="ai" placeholder="AE07 0331 2345 6789 0123 456" value="${esc(a?.iban)}"></div>${a?`<div><label>Status</label><select id="as"><option value="1">Active</option><option value="0" ${a.on===false?'selected':''}>Inactive</option></select></div>`:''}</div>
+<div id="aerr" class="warn"></div><div style="margin-top:16px"><button class="btn" onclick="saveAgent('${a?.id||''}')">${a?'Save changes':'Add agent'}</button></div>`}
+function saveAgent(id){const n=an.value.trim(),l=al.value.trim(),r=parseFloat(ar.value),w=aw.value.replace(/\D/g,''),ib=ai.value.replace(/\s/g,'').toUpperCase();if(!n||!l||isNaN(r)||r<0||r>100){aerr.textContent='Enter a name, a location and a rate between 0 and 100.';return}
+if(id){const a=ag(id);Object.assign(a,{name:n,loc:l,rate:r,wa:w,iban:ib,on:window.as?+as.value===1:true});save();openAgent(id);render()}else{S.agents.push({id:uid(),name:n,loc:l,rate:r,wa:w,iban:ib,on:true});save();go('agents')}}
+function openAgent(id,edit){const a=ag(id),s=stats(a);
+panel.innerHTML=`<div class="hd np" style="margin-bottom:10px"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn g s" onclick="closeM()">← Close</button><button class="btn g s" onclick="window.print()">Print statement</button><a class="btn s" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener" href="${waLink(a)}">Send via WhatsApp</a><button class="btn g s" onclick="openAgent('${id}',!${!!edit})">${edit?'Hide edit':'Edit agent'}</button></div></div>
+<h2>${esc(a.name)}</h2><div class="sub">${esc(a.loc)} · ${a.rate}% commission · Statement ${today()}</div><div class="sub">WhatsApp ${a.wa?'+'+esc(a.wa):'not added'} · IBAN ${esc(a.iban||'not added')}</div>
+${edit?`<div class="card np" style="margin-top:14px">${agentForm(a)}</div>`:''}
+<div class="grid k4" style="margin:16px 0;grid-template-columns:repeat(2,1fr)"><div class="card kpi"><div class="l">Sales</div><div class="v">${f(s.sales)}</div></div><div class="card kpi"><div class="l">Commission</div><div class="v">${f(s.comm)}</div></div><div class="card kpi"><div class="l">Paid</div><div class="v">${f(s.paid)}</div></div><div class="card kpi hi"><div class="l">Outstanding</div><div class="v">${f(s.out)}</div></div></div>
+<div class="card tw"><h3>Invoices</h3>${s.rows.length?`<table><tr><th>Invoice</th><th>Date</th><th class="r">Amount</th><th class="r">Commission</th><th class="r">Paid</th><th>Status</th><th class="np"></th></tr>${[...s.rows].reverse().map(r=>`<tr><td>${esc(r.no)}</td><td>${r.date}</td><td class="r">${f(r.amt)}</td><td class="r">${f(r.comm)}</td><td class="r">${f(r.pd)}</td><td class="${r.st}">${r.st}</td><td class="np"><button class="btn d s" onclick="delInv('${r.id}','${id}')">✕</button></td></tr>`).join('')}</table>`:'<div class="empty">No invoices recorded for this agent.</div>'}</div>
+<div class="card np" style="margin-top:14px"><h3>Record a payment</h3><div class="f"><div><label>Date</label><input id="pd" type="date" value="${today()}"></div><div><label>Amount (AED)</label><input id="pa" type="number" step="0.01" max="${Math.max(0,s.out).toFixed(2)}" value="${Math.max(0,s.out).toFixed(2)}"></div><div><label>Method</label><select id="pm"><option>Bank transfer</option><option>Cash</option><option>Cheque</option></select></div><div><label>Reference</label><input id="pr"></div></div><div style="margin-top:14px"><button class="btn" onclick="addPay('${id}')">Record payment</button></div></div>
+<div class="card tw" style="margin-top:14px"><h3>Payments</h3>${S.pay.filter(p=>p.agent===id).length?`<table><tr><th>Date</th><th>Method</th><th>Reference</th><th class="r">Amount</th></tr>${S.pay.filter(p=>p.agent===id).sort((x,y)=>y.date<x.date?-1:1).map(p=>`<tr><td>${p.date}</td><td>${esc(p.method)}</td><td>${esc(p.ref)}</td><td class="r">${f(p.amt)}</td></tr>`).join('')}</table>`:'<div class="empty">No payments yet.</div>'}</div>`;modal.classList.add('on')}
+function waLink(a){const s=stats(a),L=['Hello '+a.name+', here is your SecureServe commission statement ('+today()+').','','*Receivable (unpaid commission)*'];
+const un=s.rows.filter(r=>r.comm>0&&r.st!=='Paid').slice(0,30);un.length?un.forEach(r=>L.push('• '+r.no+' · '+r.date+' · AED '+f(r.comm-r.pd))):L.push('None');
+const ps=S.pay.filter(p=>p.agent===a.id).sort((x,y)=>y.date<x.date?-1:1).slice(0,15);L.push('','*Payments received*');ps.length?ps.forEach(p=>L.push('• '+p.date+' · AED '+f(p.amt)+(p.ref?' · '+p.ref:''))):L.push('None');
+L.push('','Total commission: AED '+f(s.comm),'Paid: AED '+f(s.paid),'*Outstanding: AED '+f(s.out)+'*');return 'https://wa.me/'+(a.wa||'')+'?text='+encodeURIComponent(L.join('\n'))}
+function closeM(){modal.classList.remove('on');render()}
+function addPay(id){const a=+pa.value;if(!(a>0)||!pd.value)return;S.pay.push({id:uid(),agent:id,date:pd.value,amt:a,method:pm.value,ref:pr.value.trim()});save();openAgent(id)}
+function delInv(i,a){if(!confirm('Delete this invoice and its commission?'))return;S.inv=S.inv.filter(x=>x.id!==i);save();openAgent(a)}
+
+/* ---------- Upload ---------- */
+const dup=no=>no&&S.inv.some(i=>String(i.no).toLowerCase()===String(no).trim().toLowerCase());
+function up(){return`<div class="hd"><div><h2>Upload invoice</h2><div class="sub">The app reads each document on your device, matches the address to an agent’s location and fills in the details for you to confirm.</div></div></div>
+<label class="drop" style="display:block"><b>Drop invoices here or click to choose</b>Images or PDFs · several files at once<input type="file" accept="image/*,application/pdf" multiple hidden onchange="scanFiles(this.files)"></label>
+${busy?`<div class="card" style="margin-top:14px">Reading ${busy} document${busy>1?'s':''}…</div>`:''}${msg?`<div class="warn" style="margin-top:10px">${esc(msg)}</div>`:''}
+<div style="margin:10px 0"><button class="btn g s" onclick="P.push({id:uid(),file:'Manual entry',no:'',date:today(),amt:'',agent:''});render()">+ Enter manually</button></div>
+${P.map((p,i)=>`<div class="card" style="margin-top:12px"><div class="sub" style="margin-bottom:10px">${esc(p.file)}${p.addr?` · <i>${esc(p.addr)}</i>`:''}</div><div class="f"><div><label>Invoice no.</label><input value="${esc(p.no)}" onchange="P[${i}].no=this.value;render()"></div><div><label>Date</label><input type="date" value="${p.date}" onchange="P[${i}].date=this.value"></div><div><label>Total (AED, incl. VAT)</label><input type="number" step="0.01" value="${p.amt}" onchange="P[${i}].amt=this.value;render()"></div><div><label>Agent</label><select onchange="P[${i}].agent=this.value;render()">${agOpts(p.agent,1)}</select></div></div>
+${dup(p.no)?'<div class="warn">⚠ This invoice number is already recorded.</div>':''}${!p.agent?'<div class="warn">No agent matched. Choose one, or save it to the unassigned list.</div>':p.agent&&p.amt?`<div class="sub" style="margin-top:8px">Commission: <b style="color:var(--ac)">AED ${f(p.amt*ag(p.agent).rate/100)}</b> at ${ag(p.agent).rate}%</div>`:''}
+<div style="margin-top:12px;display:flex;gap:8px"><button class="btn" onclick="savePend(${i})">Confirm &amp; save</button><button class="btn g" onclick="P.splice(${i},1);render()">Discard</button></div></div>`).join('')}
+${S.inv.some(i=>!i.agent)?`<div class="card tw" style="margin-top:18px"><h3>Unassigned invoices</h3><table><tr><th>Invoice</th><th>Date</th><th class="r">Amount</th><th>Assign to</th></tr>${S.inv.filter(i=>!i.agent).map(i=>`<tr><td>${esc(i.no)}</td><td>${i.date}</td><td class="r">${f(i.amt)}</td><td><select onchange="assign('${i.id}',this.value)">${agOpts('',1)}</select></td></tr>`).join('')}</table></div>`:''}
+<div class="card tw" style="margin-top:18px"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3 style="margin:0">All invoices</h3><button class="btn g s" onclick="exportInv()">Export CSV</button></div>${S.inv.length?`<table><tr><th>Invoice</th><th>Date</th><th>Agent</th><th class="r">Amount</th><th class="r">Commission</th></tr>${[...S.inv].sort((x,y)=>y.date<x.date?-1:1).slice(0,50).map(i=>`<tr><td>${esc(i.no)}</td><td>${i.date}</td><td>${ag(i.agent)?esc(ag(i.agent).name):'<span class="tag">Unassigned</span>'}</td><td class="r">${f(i.amt)}</td><td class="r">${f(i.comm)}</td></tr>`).join('')}</table>`:'<div class="empty">No invoices yet.</div>'}</div>`}
+function exportInv(){csv('invoices.csv',[['Invoice','Date','Agent','Location','Amount','Commission'],...S.inv.map(i=>{const a=ag(i.agent);return[i.no,i.date,a?.name||'Unassigned',a?.loc||'',i.amt,i.comm]})])}
+function savePend(i){const p=P[i],a=ag(p.agent),amt=parseFloat(p.amt);if(!p.no||isNaN(amt)||!p.date){msg='Enter an invoice number, date and total first.';render();return}
+if(dup(p.no)&&!confirm('This invoice number already exists. Save anyway?'))return;msg='';
+S.inv.push({id:uid(),no:String(p.no).trim(),date:p.date,amt,agent:a?a.id:'',rate:a?a.rate:0,comm:a?+(amt*a.rate/100).toFixed(2):0});P.splice(i,1);save();render()}
+function assign(id,aid){const a=ag(aid),i=S.inv.find(x=>x.id===id);if(!a)return;Object.assign(i,{agent:a.id,rate:a.rate,comm:+(i.amt*a.rate/100).toFixed(2)});save();render()}
+let W;const worker=()=>W||(W=Tesseract.createWorker('eng'));
+async function pdfPages(file){const L=window.pdfjsLib;L.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';const d=await L.getDocument({data:await file.arrayBuffer()}).promise,out=[];
+for(let n=1;n<=Math.min(d.numPages,3);n++){const pg=await d.getPage(n),vp=pg.getViewport({scale:2.5}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;out.push(await new Promise(r=>c.toBlob(r,'image/png')))}return out}
+async function ocr(file){if(!window.Tesseract)throw new Error('offline');const src=/pdf/i.test(file.type)||/\.pdf$/i.test(file.name)?await pdfPages(file):[file],w=await worker();let t='';for(const x of src)t+='\n'+(await w.recognize(x)).data.text;return t}
+const N=s=>String(s||'').toLowerCase().replace(/[^a-z0-9\u0600-\u06ff]+/g,' ').trim();
+function tokMatch(t,key){const T=N(t),k=N(key).split(' ').filter(w=>w.length>1);return k.length&&k.every(w=>T.includes(w))}
+function matchAgent(t,field){const m=S.agents.filter(a=>a.on!==false&&tokMatch(t,a[field])).sort((x,y)=>y[field].length-x[field].length);return m.length===1||(m.length>1&&m[0][field].length>m[1][field].length)?m[0]:null}
+const MON='jan feb mar apr may jun jul aug sep oct nov dec'.split(' ');
+function pDate(t){const p=(y,m,d)=>{y=+y;if(y<100)y+=2000;m=+m;d=+d;return m>=1&&m<=12&&d>=1&&d<=31?y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0'):''};let x;
+if(x=t.match(/(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})/))return p(x[1],x[2],x[3]);
+if(x=t.match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/))return p(x[3],x[2],x[1]);
+if(x=t.match(/(\d{1,2})(?:st|nd|rd|th)?[\s\-]+([a-z]{3})[a-z]*[\s\-,]+(\d{4})/i)){const m=MON.indexOf(x[2].toLowerCase());if(m>=0)return p(x[3],m+1,x[1])}return ''}
+const dateOf=t=>t.split(/date\b/i).slice(1).map(s=>pDate(s.slice(0,30))).find(Boolean)||pDate(t);
+const nums=l=>(l.match(/\d[\d,]*\.\d{1,2}|\d[\d,]{2,}/g)||[]).map(x=>parseFloat(x.replace(/,/g,'')));
+function parseInv(t){const no=(t.match(/(?:invoice|inv|quotation|quote|credit\s*note)\s*(?:no|number|num|#)?\s*[.:#\-]*\s*[A-Z0-9][A-Z0-9\-\/]{2,}/gi)||[]).map(s=>s.match(/([A-Z0-9][A-Z0-9\-\/]{2,})$/i)[1]).find(s=>/\d/.test(s))||'';
+const L=t.split('\n'),c=[];L.forEach((l,i)=>{if(/total|amount due|balance due/i.test(l)&&!/sub\s*-?\s*total|vat|tax|excl/i.test(l)){const n=nums(l);c.push(...(n.length?n:nums(L[i+1]||'')))}});
+let amt=c.length?Math.max(...c):'';if(amt&&/credit\s*note/i.test(t))amt=-amt;return{no,date:dateOf(t),amt}}
+async function scanFiles(files){msg='';for(const file of files){busy++;render();try{const t=await ocr(file),a=matchAgent(t,'loc'),r=parseInv(t);
+P.push({id:uid(),file:file.name,no:r.no,date:r.date||today(),amt:r.amt,addr:a?'matched “'+a.loc+'”':'',agent:a?a.id:''})}
+catch(e){msg=e.message==='offline'?'The scanning engine could not load. Connect to the internet once, then try again.':'Could not read '+file.name+'. Enter it manually.';P.push({id:uid(),file:file.name,no:'',date:today(),amt:'',agent:''})}busy--}render()}
+
+/* ---------- Payments ---------- */
+function pay(){const tot=S.pay.reduce((s,p)=>s+ +p.amt,0);
+return`<div class="hd"><div><h2>Payments ledger</h2><div class="sub">Every payout made to agents · Total paid AED ${f(tot)}</div></div><button class="btn g" onclick="exportPay()">Export CSV</button></div>
+<label class="drop" style="display:block;margin-bottom:14px"><b>Upload payment receipts</b>Recorded automatically when the IBAN matches an agent; anything unsure is sent for your review<input type="file" accept="image/*,application/pdf" multiple hidden onchange="scanReceipts(this.files)"></label>
+${rbusy?`<div class="card" style="margin-bottom:14px">Reading ${rbusy} receipt${rbusy>1?'s':''}…</div>`:''}${rmsg.map(m=>`<div class="card" style="margin-bottom:8px">${esc(m)}</div>`).join('')}
+${RP.map((p,i)=>`<div class="card" style="margin-bottom:12px;border-color:var(--ac)"><div class="sub" style="margin-bottom:10px">Needs review · ${esc(p.file)}${p.note?' · '+esc(p.note):''}</div><div class="f"><div><label>Agent</label><select onchange="RP[${i}].agent=this.value">${agOpts(p.agent,1)}</select></div><div><label>Date</label><input type="date" value="${p.date}" onchange="RP[${i}].date=this.value"></div><div><label>Amount (AED)</label><input type="number" step="0.01" value="${p.amt}" onchange="RP[${i}].amt=this.value"></div><div><label>Method</label><select onchange="RP[${i}].method=this.value">${['Bank transfer','Cash','Cheque'].map(m=>`<option ${m===p.method?'selected':''}>${m}</option>`).join('')}</select></div><div><label>Reference</label><input value="${esc(p.ref)}" onchange="RP[${i}].ref=this.value"></div></div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn" onclick="saveRP(${i})">Record payment</button><button class="btn g" onclick="RP.splice(${i},1);render()">Discard</button></div></div>`).join('')}
+<div class="card" style="margin-bottom:14px"><h3>Record a payment</h3><div class="f"><div><label>Agent</label><select id="lg">${agOpts('')}</select></div><div><label>Date</label><input id="pd" type="date" value="${today()}"></div><div><label>Amount (AED)</label><input id="pa" type="number" step="0.01"></div><div><label>Method</label><select id="pm"><option>Bank transfer</option><option>Cash</option><option>Cheque</option></select></div><div><label>Reference</label><input id="pr"></div></div><div style="margin-top:14px"><button class="btn" onclick="if(lg.value){addPay2(lg.value)}">Record payment</button></div></div>
+<div class="card tw">${S.pay.length?`<table><tr><th>Date</th><th>Agent</th><th>Method</th><th>Reference</th><th class="r">Amount</th><th></th></tr>${[...S.pay].sort((x,y)=>y.date<x.date?-1:1).map(p=>`<tr><td>${p.date}</td><td>${ag(p.agent)?esc(ag(p.agent).name):'—'}</td><td>${esc(p.method)}</td><td>${esc(p.ref)}</td><td class="r">${f(p.amt)}</td><td class="r"><button class="btn d s" onclick="if(confirm('Delete this payment?')){S.pay=S.pay.filter(x=>x.id!=='${p.id}');save();render()}">✕</button></td></tr>`).join('')}</table>`:'<div class="empty">No payments recorded yet.</div>'}</div>`}
+function addPay2(id){const a=+pa.value;if(!(a>0)||!pd.value)return;S.pay.push({id:uid(),agent:id,date:pd.value,amt:a,method:pm.value,ref:pr.value.trim()});save();render()}
+function exportPay(){csv('payments.csv',[['Date','Agent','Method','Reference','Amount'],...S.pay.map(p=>[p.date,ag(p.agent)?.name||'',p.method,p.ref,p.amt])])}
+
+let RP=[],rbusy=0,rmsg=[];
+function saveRP(i){const p=RP[i],a=parseFloat(p.amt);if(!p.agent||!(a>0)||!p.date){rmsg=['Choose an agent and enter a date and amount first.'];render();return}
+S.pay.push({id:uid(),agent:p.agent,date:p.date,amt:a,method:p.method,ref:(p.ref||'').trim()});RP.splice(i,1);rmsg=[];save();render()}
+async function scanReceipts(files){rmsg=[];const norm=s=>String(s||'').replace(/[^A-Z0-9]/gi,'').toUpperCase();
+for(const file of files){rbusy++;render();try{const t=await ocr(file),T=norm(t);let a=S.agents.find(x=>x.iban&&T.includes(norm(x.iban)));const strong=!!a;if(!a)a=matchAgent(t,'name');
+const am=(t.match(/(?:aed|amount|total|debit)\D{0,20}([\d,]+\.\d{2})/i)||[])[1],amt=am?parseFloat(am.replace(/,/g,'')):(t.match(/\d[\d,]*\.\d{2}/g)||[]).map(x=>parseFloat(x.replace(/,/g,''))).sort((x,y)=>y-x)[0]||'';
+const ref=(t.match(/(?:ref(?:erence)?|transaction|txn|trx)\s*(?:no|number|id|#)?\s*[.:#\-]*\s*([A-Z0-9\-]{5,})/i)||[])[1]||'';
+const p={id:uid(),file:file.name,agent:a?a.id:'',date:dateOf(t)||today(),amt,method:/cheque/i.test(t)?'Cheque':/\bcash\b/i.test(t)?'Cash':'Bank transfer',ref};
+const d=a&&S.pay.some(x=>x.agent===a.id&&+x.amt===+p.amt&&x.date===p.date&&(x.ref||'')===p.ref);
+if(strong&&p.amt>0&&!d){S.pay.push({id:p.id,agent:a.id,date:p.date,amt:+p.amt,method:p.method,ref:p.ref});save();rmsg.push('Recorded AED '+f(p.amt)+' to '+a.name+' ('+p.date+') from '+file.name)}
+else{p.note=d?'looks like a duplicate':!a?'no agent matched':!strong?'matched by name only, please confirm':'amount not read';RP.push(p)}
+}catch(e){rmsg.push(e.message==='offline'?'The scanning engine could not load. Connect to the internet once, then try again.':'Could not read '+file.name+'.');RP.push({id:uid(),file:file.name,agent:'',date:today(),amt:'',method:'Bank transfer',ref:'',note:'could not be read'})}rbusy--}render()}
+function render(){main.innerHTML={dash,agents,add:addAgent,up,pay}[V]()}
+go('dash');if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
